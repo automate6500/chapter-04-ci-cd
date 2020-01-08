@@ -35,14 +35,17 @@ jobs:
        gcr_host: gcr.io
        image_name: ${{ env.IMAGE_NAME }}
        image_tag: latest
-    #- name: Build and tag image
-    #  run: docker build -t "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest" .
+    - name: Build and tag image
+      #docker tag <user-name>/<sample-image-name> gcr.io/<project-id>/<sample-image-name>:<tag>
+      #run: docker build -t "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest" .
+      run: docker build -t "gcr.io/${{ secrets.GCP_PROJECT_ID }}/$PACKAGE_NAME:latest" .
     #- name: Docker login
     #  run: docker login docker.pkg.github.com -u $GITHUB_ACTOR -p $GITHUB_TOKEN
     #  env:
     #    GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-    #- name: Publish to GitHub Package Registry
-    #  run: docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest"
+    - name: Publish to GitHub Package Registry
+      #run: docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest"
+      run: gcloud docker -- push gcr.io/${{ secrets.GCP_PROJECT_ID }}/$PACKAGE_NAME:latest
   #test_image:
   #  needs: build_image
   #  runs-on: ubuntu-18.04
