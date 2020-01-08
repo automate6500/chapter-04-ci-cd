@@ -29,7 +29,7 @@ jobs:
     - name: Push Docker GCR
       uses: RaccoonDev/push-docker-gcr@v1
       env:
-        GCLOUD_SERVICE_KEY: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
+        GCLOUD_SERVICE_KEY: ${{ secrets.GCP_SERVICE_ACCT_KEY_JSON }}
         GOOGLE_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
       with:
        gcr_host: gcr.io
