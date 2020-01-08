@@ -1,6 +1,8 @@
 name: Pipeline
 
 on: [push]
+env:
+  PACKAGE_NAME: app2
 
 jobs:
 
@@ -19,3 +21,15 @@ jobs:
     - name: Run unit tests
       run: |
         python -m unittest --verbose --failfast        
+  build_image:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build and tag image
+      run: docker build -t "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest" .
+    - name: Docker login
+      run: docker login docker.pkg.github.com -u $GITHUB_ACTOR -p $GITHUB_TOKEN
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Publish to GitHub Package Registry
+      run: docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest"
