@@ -32,7 +32,7 @@ jobs:
         service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
         service_account_key: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
     - run: |
-        gcloud project set 'github-actions-cicd'
+        gcloud config set project 'github-actions-cicd'
         gcloud info
     - name: Build and tag image
       #docker tag <user-name>/<sample-image-name> gcr.io/<project-id>/<sample-image-name>:<tag>
