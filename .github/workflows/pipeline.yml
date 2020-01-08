@@ -22,6 +22,7 @@ jobs:
       run: |
         python -m unittest --verbose --failfast        
   build_image:
+    needs: lint
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
@@ -34,6 +35,7 @@ jobs:
     - name: Publish to GitHub Package Registry
       run: docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest"
   test_image:
+    needs: build_image
     runs-on: ubuntu-18.04
     steps:
     - name: Docker login
