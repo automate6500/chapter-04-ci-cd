@@ -44,7 +44,12 @@ jobs:
     #    GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Publish to GitHub Package Registry
       #run: docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest"
-      run: gcloud docker -- push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      with:
+        version: '274.0.1'
+        service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
+    - run: gcloud docker -- push gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.IMAGE_NAME }}:latest
   #test_image:
   #  needs: build_image
   #  runs-on: ubuntu-18.04
