@@ -26,7 +26,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-    - uses: raccoondev/push-docker-gcr
+    - name: Push Docker GCR
+      uses: RaccoonDev/push-docker-gcr@v1
       env:
         GCLOUD_SERVICE_KEY: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
         GOOGLE_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
