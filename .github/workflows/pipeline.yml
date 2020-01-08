@@ -35,13 +35,13 @@ jobs:
         gcloud info
     
     - name: Build and tag image
-      run: docker build -t ${{ env.IMAGE_NAME }}:latest .   
+      run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest .   
     
     - name: Docker login
       run: docker login -u oauth2accesstoken -p "$(gcloud auth print-access-token)" https://gcr.io
     
     - name: Publish to GitHub Package Registry
-      run: docker push ${{ env.IMAGE_NAME }}:latest:latest
+      run: docker push $gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest
 
   #test_image:
   #  needs: build_image
