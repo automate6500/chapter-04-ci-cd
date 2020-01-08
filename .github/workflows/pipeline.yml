@@ -26,15 +26,12 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-    - name: Push Docker GCR
-      uses: RaccoonDev/push-docker-gcr@v1
-      env:
-        GCLOUD_SERVICE_KEY: ${{ secrets.GCP_SERVICE_ACCT_KEY_JSON }}
-        GOOGLE_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
-       gcr_host: gcr.io
-       image_name: ${{ env.IMAGE_NAME }}
-       image_tag: latest
+        version: '274.0.1'
+        service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
+        service_account_key: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
+    - run: gcloud info
     - name: Build and tag image
       #docker tag <user-name>/<sample-image-name> gcr.io/<project-id>/<sample-image-name>:<tag>
       #run: docker build -t "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest" .
