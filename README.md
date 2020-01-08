@@ -7,3 +7,4 @@ Files include:
 - Dockerfile for creating a container for the app
 - Workflow for calling Actions on push
 - Local action for linting and testing
+
