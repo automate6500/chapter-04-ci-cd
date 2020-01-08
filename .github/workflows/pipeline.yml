@@ -31,7 +31,7 @@ jobs:
         PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
         APPLICATION_CREDENTIALS: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
       with:
-        args: builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/$PACKAGE_NAME      
+        args: builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/$PACKAGE_NAME
     #- name: Build and tag image
     #  run: docker build -t "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest" .
     #- name: Docker login
