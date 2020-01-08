@@ -33,3 +33,12 @@ jobs:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Publish to GitHub Package Registry
       run: docker push "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest"
+  test_image:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Docker login
+      run: docker login docker.pkg.github.com -u $GITHUB_ACTOR -p $GITHUB_TOKEN
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Run unit tests in container
+      run: docker run "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest" -m unittest --verbose --failfast
