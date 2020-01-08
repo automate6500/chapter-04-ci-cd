@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions-hub/gcloud@master
       env:
-        PROJECT_ID: test
+        PROJECT_ID: GitHub-Actions-CICD
         APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
       with:
         args: info
