@@ -31,7 +31,9 @@ jobs:
         version: '274.0.1'
         service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
         service_account_key: ${{ secrets.GCP_SERVICE_ACCT_KEY }}
-    - run: gcloud info
+    - run: |
+        gcloud project set 'github-actions-cicd'
+        gcloud info
     - name: Build and tag image
       #docker tag <user-name>/<sample-image-name> gcr.io/<project-id>/<sample-image-name>:<tag>
       #run: docker build -t "docker.pkg.github.com/$GITHUB_REPOSITORY/$PACKAGE_NAME:latest" .
