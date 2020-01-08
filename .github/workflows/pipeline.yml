@@ -4,7 +4,6 @@ on: [push]
 env:
   APPLICATION_NAME: app2
 jobs:
-  IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}
   lint:
     runs-on: ubuntu-18.04
     steps:
@@ -21,7 +20,8 @@ jobs:
       run: |
         python -m unittest --verbose --failfast        
   build_image:
-    needs: lint
+    env:
+      IMAGE_NAME: gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
