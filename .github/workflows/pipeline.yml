@@ -24,7 +24,8 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v1
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+    - name: Set up GCloud
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '274.0.1'
         service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
@@ -45,7 +46,8 @@ jobs:
     needs: build_image
     runs-on: ubuntu-18.04
     steps:
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+    - name: Set up GCloud
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '274.0.1'
         service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
@@ -63,7 +65,8 @@ jobs:
     needs: test_image
     runs-on: ubuntu-18.04
     steps:
-    - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+    - name: Set up GCloud
+      uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '274.0.1'
         service_account_email: ${{ secrets.GCP_SERVICE_ACCT_EMAIL }}
