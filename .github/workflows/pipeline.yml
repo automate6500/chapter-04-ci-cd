@@ -79,3 +79,8 @@ jobs:
         
     - name: Deploy to Cloud Run
       run: gcloud run deploy ${{ env.APPLICATION_NAME }} --image=gcr.io/${{ secrets.GCP_PROJECT_ID }}/${{ env.APPLICATION_NAME }}:latest --platform=managed --allow-unauthenticated
+
+    - name: Test deployment
+      run: |
+        DEPLOY_URL=$(gcloud run services list --platform managed | grep ${{ env.APPLICATION_NAME }}  | awk '{print $4}')
+        curl -sL --max-time 3 -o /dev/null -w "%{http_code}" $DEPLOY_URL | grep 200 || exit 1
