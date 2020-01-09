@@ -8,3 +8,4 @@ Files include:
 - Workflow for calling Actions on push
 - Local action for linting and testing
 
+![](https://github.com/automate6500/chapter-04-ci-cd/workflows/Pipeline/badge.svg)
